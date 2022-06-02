@@ -9,7 +9,7 @@ class HealthProblem(models.Model):
        verbose_name_plural = 'Health Problems'
 
     def __str__(self):
-        return self.name
+        return f'{self.name}, degree {self.degree}'
 
 
 class Client(models.Model):
