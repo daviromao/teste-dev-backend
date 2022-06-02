@@ -1,8 +1,13 @@
 from django.db import models
 
 class HealthProblem(models.Model):
+    HEALTH_DEGREE_CHOICES = [
+        (1, 'degree 1'),
+        (2, 'degree 2')
+    ]
+
     name = models.CharField(max_length=255)
-    degree = models.PositiveSmallIntegerField(max_length=2, choices=[1, 2])
+    degree = models.PositiveSmallIntegerField(choices=HEALTH_DEGREE_CHOICES)
 
     class Meta:
        verbose_name = 'Health Problem'
@@ -19,9 +24,9 @@ class Client(models.Model):
         ('N', 'Nonbinary')
     ]
 
-    name = models.CharField()
+    name = models.CharField(max_length=255)
     birthdate = models.DateField(auto_now=False, auto_now_add=False)
-    gender = models.CharField(choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     health_problems = models.ManyToManyField(
         HealthProblem,
         related_name='health_problems',
