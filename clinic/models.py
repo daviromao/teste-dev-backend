@@ -12,7 +12,6 @@ class HealthProblem(models.Model):
     class Meta:
        verbose_name = 'Health Problem'
        verbose_name_plural = 'Health Problems'
-       unique_together = ('name', 'degree')
 
     def __str__(self):
         return f'{self.name}, degree {self.degree}'
