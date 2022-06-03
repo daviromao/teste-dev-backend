@@ -33,5 +33,5 @@ class Client(models.Model):
         related_name='health_problems',
         related_query_name='health_problems'
     )
-    created_at = models.DateField(auto_now_add=True),
-    updated_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True),
+    updated_at = models.DateTimeField(auto_now=True)
