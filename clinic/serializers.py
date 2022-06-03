@@ -34,3 +34,21 @@ class ClientSerializer(serializers.ModelSerializer):
             client.health_problems.add(health_problem_instance)
         
         return client
+
+    def update(self, instance, validated_data):
+        
+        instance.name = validated_data.get('name', instance.name)
+        instance.birthdate = validated_data.get('birthdate', instance.birthdate)
+        instance.gender = validated_data.get('birthdate', instance.gender)
+
+        if 'health_problems' in validated_data:
+            instance.health_problems.clear()
+
+            health_problems = validated_data.pop('health_problems')
+            for health_problem in health_problems:
+                health_problem_instance, _ = HealthProblem.objects.get_or_create(**health_problem)
+                instance.health_problems.add(health_problem_instance)
+
+        instance.save()
+
+        return instance
