@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from clinic.models import HealthProblem
 from clinic.models import Client
-
+from math import e
 
 class HealthProblemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,8 +22,11 @@ class ClientSerializer(serializers.ModelSerializer):
             'gender',
             'health_problems',
             'created_at',
-            'updated_at'
+            'updated_at',
+            'score',
         ]
+
+        read_only_fields = ['score']
 
     def create(self, validated_data):
         health_problems = validated_data.pop('health_problems')
@@ -32,6 +35,19 @@ class ClientSerializer(serializers.ModelSerializer):
         for health_problem in health_problems:
             health_problem_instance, _ = HealthProblem.objects.get_or_create(**health_problem)
             client.health_problems.add(health_problem_instance)
+        
+
+        """
+            sd = soma do grau dos problemas
+            score = (1 / (1 + e^-(-2.8 + sd ))) * 100
+        """
+        lambda_degree = lambda health_problem: health_problem.degree
+        sum_degree = sum(map(lambda_degree, client.health_problems.all()))
+        score = (1/ (1+e**(-(-2.8 + sum_degree)))) * 100
+
+        client.score = score
+
+        client.save()
         
         return client
 
@@ -48,6 +64,17 @@ class ClientSerializer(serializers.ModelSerializer):
             for health_problem in health_problems:
                 health_problem_instance, _ = HealthProblem.objects.get_or_create(**health_problem)
                 instance.health_problems.add(health_problem_instance)
+
+        """
+            sd = soma do grau dos problemas
+            score = (1 / (1 + e^-(-2.8 + sd ))) * 100
+        """
+
+        lambda_degree = lambda health_problem: health_problem.degree
+        sum_degree = sum(map(lambda_degree, instance.health_problems.all()))
+        score = (1/ (1+e**(-(-2.8 + sum_degree)))) * 100
+
+        instance.score = score
 
         instance.save()
 
