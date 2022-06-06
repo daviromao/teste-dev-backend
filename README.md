@@ -1,54 +1,68 @@
-![Oli Saúde|100x397,20%](https://hs-7708371.f.hubspotfree.net/hub/7708371/hubfs/logo-olisaude.png?upscale=true&width=288&upscale=true&name=logo-olisaude.png)
+# Work at Olist
 
-# Backend Developer Challenge
-Este é um desafio simples para testar suas habilidades na construção de APIs.
-Os serviços da Oli usam principalmente tecnologias Kotlin e Springboot. No entanto, você pode usar qualquer linguagem e framework que lhe pareça mais confortável.
+This project was created using the Olisaude challenge. It's an API to manage (CRUD) clients and get 10 clients with the highest health risk. Python, django and django rest framework was the technologies used in this project.
 
-# O Desafio
-Crie uma API simples para gerenciar Clientes. Esta API deve permitir:
-- Criar um cliente
-- Editar um cliente
-- Obter um cliente específico
-- Listar clientes
+You can see the API Documentation at ---
 
-Um Cliente deve ter os seguintes campos:
-- nome
-- data de nascimento
-- sexo 
-- [ problemas de saude ]
-- data de criação
-- data de atualização
+# Installation and tests instructions
 
-Problemas de Saúde
-- nome
-- grau do problema (de 1 a 2)
-    
-    ```
-    ex: diabetes, grau 2
-    ```
+To run this project it is necessary python >= 3.8.
 
-Criar um endpoint para trazer os 10 clientes com maior risco de saúde, no qual o cálculo é:
-    
-    ```
-        sd = soma do grau dos problemas
-        score = (1 / (1 + eˆ-(-2.8 + sd ))) * 100
-    ```
 
-# Requisitos
-- Todas as respostas da API devem ser JSON
-- Fornece um arquivo README.md com instruções de uso (como executar, endpoints etc)
+### Clone this repository: 
 
-# Recomendações
-- Tests, tests and tests
-- SOLID
-- Código e commits em inglês (métodos, classes, variáveis, etc)
+```sh
+git clone git@github.com:daviromao/teste-dev-backend.git
 
-# Avaliação
-- Estrutura, arquitetura e organização do projeto
-- Boas práticas de programação
-- Alcance dos objetivos propostos.
+cd teste-dev-backend
+```
 
-# Entrega
-Você deve fazer um fork deste repositório e confirmar a solução na pasta de dev. Seu repositório deve ser público.
 
-Enviar um e-mail para tech@olisaude.com.br com a url da sua solução.
+### Create the environment:
+```sh
+python3 -m venv env
+```
+
+
+### Activate the envirnoment:
+
+on Windows:
+```sh
+.\env\Scripts\activate               
+```
+
+on Ubuntu:
+```sh
+source env/bin/activate
+```
+
+
+### Install the reqeuirements:
+
+```
+pip install requirements.txt
+```
+
+
+### Run migrations:
+
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
+
+### Run project:
+```sh
+python manage.py runserver
+```
+
+
+#### Acces the local API at http://localhost:8000/
+
+
+### Run tests:
+```sh
+python manage.py test
+```
+
