@@ -1,3 +1,4 @@
+import datetime
 from rest_framework import serializers
 
 from clinic.models import HealthProblem
@@ -58,3 +59,11 @@ class ClientSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+    def validate_birthdate(self, value):
+        today = datetime.date.today()
+
+        if value > today:
+            raise serializers.ValidationError('Birthdate cannot be in the future.')
+            
+        return value
