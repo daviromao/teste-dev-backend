@@ -7,7 +7,7 @@ def associate_client_with_health_problems_list(client: Client, health_problems: 
         client.health_problems.add(health_problem_instance)
 
 
-def calculate_score_from_health_problems(health_problems) -> float:
+def calculate_score_from_health_problems(health_problems: list[dict] = []) -> float:
     """
         sd = sum of the degree of problems
         score = (1 / (1 + e^-(-2.8 + sd ))) * 100
