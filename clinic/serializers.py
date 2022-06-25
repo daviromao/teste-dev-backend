@@ -1,4 +1,5 @@
 import datetime
+from email.policy import default
 from rest_framework import serializers
 
 from clinic.models import HealthProblem
@@ -14,7 +15,7 @@ class HealthProblemSerializer(serializers.ModelSerializer):
 
 
 class ClientSerializer(serializers.ModelSerializer):
-    health_problems = HealthProblemSerializer(many=True)
+    health_problems = HealthProblemSerializer(many=True, default=[])
 
     class Meta:
         model = Client
